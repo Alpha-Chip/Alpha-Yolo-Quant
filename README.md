@@ -32,7 +32,7 @@ create quantised weights for Verilog implementations of a compressed model archi
 ## Utilisation
 #### Repository cloning:
 ```sh
-git clone https://github.com/sopheroner/yolov8n_quantisation.git
+git clone https://github.com/Alpha-Chip/Alpha-Yolo-Quant.git
 ```
 #### Dependency installation
 ```sh
