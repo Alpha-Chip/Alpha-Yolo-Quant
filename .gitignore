@@ -30,3 +30,4 @@ quantisation/stage_6_full_quant_batch.py
 quantisation/std_experiment.py
 quantisation/batch_experiments_v2.py
 quantisation/stage_4_debug.py
+quantisation/sigmoid_article_exp.py

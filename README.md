@@ -1,27 +1,27 @@
-# 🤖 Квантизация YOLOv8n 🤖
-Проект квантизации YOLOv8n представляет собой реализацию алгоритма компьютерного зрения для обнаружения объектов, который 
-использует квантизацию для уменьшения размера модели без значительной потери точности. Основная цель проекта - 
-создать квантизованные веса для Verilog реализации сжатую архитектуру модели, способную работать на устройствах с ограниченными вычислительными ресурсами.
+# 🤖 YOLOv8n quantisation 🤖
+The YOLOv8n quantisation project is an implementation of a computer vision algorithm for object detection that
+uses quantisation to reduce the model size without significant loss of accuracy. The main goal of the project is to.
+create quantised weights for Verilog implementations of a compressed model architecture capable of running on devices with limited computational resources.
 
-## Содержание
-- [Входные и выходные данные](#Входные-и-выходные-данные)
-- [Технологии](#Технологии)
-- [Использование](#Использование)
-- [Описание и порядок исполняемых файлов](#Описание-и-порядок-исполняемых-файлов)
 
-## Входные и выходные данные
-### Вход
-- модель yolov8n.pt
-- количество бит 
-### Выход
-- оригинальные веса .pickle
-- веса batchnormfusion .pickle
-- сжатая архитектура yolov8n
-- расчет первого пикселя
-- квантизованные активации
-- квантизованные веса Verilog формата
+## Table of Contents
+- [Input and output data](#Input-and-output-data)
+- [Technologies](#Technologies)
+- [Utilisation](#Utilisation)
+- [Description and order of executable files](#Description-and-order-of-executable-files)
 
-## Технологии
+## Input and output data
+### Input
+- model yolov8n.pt
+- bit number 
+### Output
+- original weights .pickle
+- weights batchnormfusion .pickle
+- compressed architecture yolov8n
+- quantised activations
+- Verilog format quantised weights
+
+## Technologies
 - Python
 - Numpy
 - PyTorch
@@ -29,25 +29,25 @@
 - Matplotlib
 - PIL
 
-## Использование
-#### Клонирование репозитория:
+## Utilisation
+#### Repository cloning:
 ```sh
 git clone https://github.com/sopheroner/yolov8n_quantisation.git
 ```
-#### Установка зависимостей
+#### Dependency installation
 ```sh
 pip install -r requirements.txt
 ```
 
-## Описание и порядок исполняемых файлов
-0. ```stage_0.py``` - конфиг с начальными параметрами
-1. ```stage_1.py``` - подготовка модели. Необходимо из готовой модели (yolov8n.pt) получить веса с названиями, которые подходят под названия весов в кастомной архитектуре
-2. ```stage_2.py``` - применение метода BatchNormFusion на архитектуру (все слои BatchNorm становятся едиными с conv)
-3. ```stage_3.py``` - валидация исходной модели (coco датасет)
-4. ```stage_4.py``` - валидация модели с BatchNormFusion весами + калибровка. Необходимо сравнить метрики оригинальной моедли и batchnormf модели (должны совпаcть / слабо отличаться). Калибровка - максимальное значение активаций
-5. ```stage_5.py``` - подбор максимума
-6. ```stage_6.py``` - квантизация весов. Перевод размерности весов из float в int (без последних слоев)
-7. ```stage_6_full_quant.py``` - квантизация весов (включая последние слои)
-8. ```stage_7.py``` - форматирование квантизованных весов под yolo архитектуру
-9. ```stage_8_torch.py``` - валидация квантизованной модели БЕЗ q_NMS
-9. ```stage_8_torch_full_quant.py``` - валидация квантизованной модели С q_NMS.
+## Description and order of executable files
+0. ```stage_0.py``` - config with initial parameters
+1. ```stage_1.py``` - model preparation. From the ready model (yolov8n.pt) it is necessary to get weights with names that match the names of weights in the custom architecture
+2. ```stage_2.py``` - applying the BatchNormFusion method to the architecture (all BatchNorm layers become one with conv)
+3. ```stage_3.py``` - validation of the initial model (COCO dataset)
+4. ```stage_4.py``` - model validation with BatchNormFusion weights + calibration. It is necessary to compare the metrics of the original model and the batchnormf model (should be the same / slightly different). Calibration - maximum value of activations
+5. ```stage_5.py``` - maximum selection
+6. ```stage_6.py``` - quantisation of weights. Conversion of weights dimension from float to int (without last layers)
+7. ```stage_6_full_quant.py``` - quantisation of weights (including last layers)
+8. ```stage_7.py``` - formatting quantised weights for yolo architecture
+9. ```stage_8_torch.py``` - validation of the quantised model WITHOUT q_NMS
+9. ```stage_8_torch_full_quant.py``` - Validation of the quantised C q_NMS model
